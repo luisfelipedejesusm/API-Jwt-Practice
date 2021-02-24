@@ -46,7 +46,7 @@ public class JwtUtils {
      */
     public boolean isJwtTokenValid(String jwt) {
         try{
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(jwt);
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt);
             return true;
         }catch (SignatureException e){
             logger.error("Invalid JWT Signature: {}", e.getMessage());
@@ -68,6 +68,6 @@ public class JwtUtils {
      * @return username
      */
     public String getUsernameFromToken(String jwt) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(jwt).getBody().getSubject();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwt).getBody().getSubject();
     }
 }
