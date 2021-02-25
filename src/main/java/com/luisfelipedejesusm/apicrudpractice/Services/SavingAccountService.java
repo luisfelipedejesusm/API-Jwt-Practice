@@ -23,12 +23,15 @@ public class SavingAccountService {
 
     public void openAccount(AccountOpeningPayload payload){
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         SavingAccount savingAccount = new SavingAccount();
         User user = new User();
+        Date date = new Date();
+
         user.setId(userDetails.getId());
+
         savingAccount.setUser(user);
         savingAccount.setBalance(payload.getOpeningBalance());
-        Date date = new Date();
         savingAccount.setAccountNumber(user.getId().toString() + date.getTime());
         savingAccount.setSavingAccType(payload.getAccountType());
         savingAccountRepository.save(savingAccount);
